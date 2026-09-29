@@ -14,7 +14,12 @@ import {
   CertificateItem,
   JobMatchItem,
   CandidateItem,
-  NotificationItem
+  NotificationItem,
+  NominationItem,
+  InterviewItem,
+  HiredCandidateItem,
+  ReportItem,
+  JobPostingItem
 } from '../types';
 
 export const mockTraineeProfile: TraineeProfile = {
@@ -616,3 +621,323 @@ export const chatBotKnowledgeBase: Record<string, string> = {
   score: "To increase your AI Skill Score from 78% to 90%+, complete the pending quizzes in Financial Awareness, maintain above 90% attendance via QR/Face check-in, and finish the recommended 12-hour Digital Marketing course.",
   default: "I am CoopCareer AI, your dedicated Indian Cooperative Sector career counselor. You can ask me for course recommendations, matched jobs, skill gap analysis, or guidance on NCCT/ICM certifications."
 };
+
+export const mockTraineesList: TraineeProfile[] = [
+  {
+    id: "TR-2026-8942",
+    name: "Aarav Sharma",
+    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    age: 24,
+    location: "Madurai, Tamil Nadu",
+    programme: "Diploma in Cooperative Business Management (DCBM)",
+    institute: "Institute of Cooperative Management, Madurai",
+    batch: "DCBM-2026-Cohort-3",
+    contact: "+91 98402 12345",
+    email: "aarav.sharma@coopnet.gov.in",
+    skills: ["PACS Accounting", "Dairy Governance", "Digital Ledger", "Coop Law 2002", "Inventory MIS"],
+    learningProgress: 82,
+    attendanceRate: 94.6,
+    coursesCompleted: 6,
+    skillScore: 78
+  },
+  {
+    id: "TR-2026-7811",
+    name: "Priya Venkatesh",
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    age: 23,
+    location: "Bengaluru, Karnataka",
+    programme: "PACS Computerization & ERP Masterclass",
+    institute: "RICM Bengaluru",
+    batch: "PACS-ERP-2026",
+    contact: "+91 98801 44521",
+    email: "priya.v@coopnet.gov.in",
+    skills: ["PACS ERP", "Data Entry MIS", "Member Relations", "Excel Analytics"],
+    learningProgress: 90,
+    attendanceRate: 97.2,
+    coursesCompleted: 7,
+    skillScore: 86
+  },
+  {
+    id: "TR-2026-6429",
+    name: "Karan Mathur",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    age: 25,
+    location: "Pune, Maharashtra",
+    programme: "Multi-State Cooperative Governance & Law",
+    institute: "VAMNICOM Pune",
+    batch: "GOV-2026-A",
+    contact: "+91 97654 32109",
+    email: "karan.m@coopnet.gov.in",
+    skills: ["Cooperative Law", "Statutory Audit", "Financial Analysis"],
+    learningProgress: 75,
+    attendanceRate: 91.0,
+    coursesCompleted: 5,
+    skillScore: 81
+  },
+  {
+    id: "TR-2026-9051",
+    name: "Deepa Nambiar",
+    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    age: 26,
+    location: "Kochi, Kerala",
+    programme: "Agri-Credit & Risk Assessment for DCCBs",
+    institute: "ICM Madurai",
+    batch: "DCBM-2026-B1",
+    contact: "+91 94471 22334",
+    email: "deepa.n@coopnet.gov.in",
+    skills: ["Credit Appraisal", "SHG Group Lending", "Audit Documentation"],
+    learningProgress: 88,
+    attendanceRate: 96.5,
+    coursesCompleted: 6,
+    skillScore: 84
+  },
+  {
+    id: "TR-2026-5510",
+    name: "Girish Patel",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    age: 24,
+    location: "Gandhinagar, Gujarat",
+    programme: "Dairy Cooperative Cold Chain Operations",
+    institute: "ICM Gandhinagar",
+    batch: "DAIRY-2026",
+    contact: "+91 98250 88991",
+    email: "girish.p@coopnet.gov.in",
+    skills: ["Cold Chain Logistics", "Quality Testing", "AMUL Pattern Governance"],
+    learningProgress: 68,
+    attendanceRate: 88.5,
+    coursesCompleted: 4,
+    skillScore: 73
+  },
+  {
+    id: "TR-2026-3394",
+    name: "Ananya Roy",
+    photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    age: 22,
+    location: "Dehradun, Uttarakhand",
+    programme: "FPO & Rural Cooperative Entrepreneurship",
+    institute: "ICM Dehradun",
+    batch: "FPO-2026-A",
+    contact: "+91 97190 55432",
+    email: "ananya.r@coopnet.gov.in",
+    skills: ["FPO Marketing", "Direct Farmer Linkage", "Govt Subsidies"],
+    learningProgress: 79,
+    attendanceRate: 93.0,
+    coursesCompleted: 5,
+    skillScore: 77
+  }
+];
+
+export const mockNominations: NominationItem[] = [
+  {
+    id: "NOM-841",
+    candidateName: "Suresh Balakrishnan",
+    organization: "Erode District Central Cooperative Bank",
+    district: "Erode",
+    state: "Tamil Nadu",
+    programmeApplied: "PACS Computerization & ERP Masterclass",
+    status: "Pending",
+    submissionDate: "24 Feb 2026",
+    experienceYears: 4
+  },
+  {
+    id: "NOM-842",
+    candidateName: "Meenakshi Kulkarni",
+    organization: "Kolhapur District Milk Producers Union (Gokul)",
+    district: "Kolhapur",
+    state: "Maharashtra",
+    programmeApplied: "Dairy Cooperative Cold Chain Operations",
+    status: "Pending",
+    submissionDate: "25 Feb 2026",
+    experienceYears: 6
+  },
+  {
+    id: "NOM-843",
+    candidateName: "Rajeev Singhania",
+    organization: "Bareilly Primary Agricultural Credit Society",
+    district: "Bareilly",
+    state: "Uttar Pradesh",
+    programmeApplied: "Diploma in Cooperative Business Management",
+    status: "Approved",
+    submissionDate: "20 Feb 2026",
+    experienceYears: 2
+  },
+  {
+    id: "NOM-844",
+    candidateName: "Lakshmi Narayanan",
+    organization: "Thanjavur Farmers Service Cooperative Society",
+    district: "Thanjavur",
+    state: "Tamil Nadu",
+    programmeApplied: "Agri-Credit & Risk Assessment for DCCBs",
+    status: "Pending",
+    submissionDate: "26 Feb 2026",
+    experienceYears: 5
+  },
+  {
+    id: "NOM-845",
+    candidateName: "Harpreet Singh",
+    organization: "Ludhiana Weavers Industrial Cooperative",
+    district: "Ludhiana",
+    state: "Punjab",
+    programmeApplied: "Rural Cooperative Entrepreneurship",
+    status: "Rejected",
+    submissionDate: "18 Feb 2026",
+    experienceYears: 1
+  }
+];
+
+export const mockJobPostings: JobPostingItem[] = [
+  {
+    id: "POST-101",
+    title: "Cooperative Field Officer",
+    department: "Rural Credit & Field Operations",
+    location: "Madurai / Coimbatore, Tamil Nadu",
+    openings: 18,
+    salary: "₹4.5 - 6.0 LPA",
+    type: "Full-time",
+    postedDate: "20 Feb 2026",
+    status: "Active",
+    applicantsCount: 42
+  },
+  {
+    id: "POST-102",
+    title: "Digital Operations Assistant",
+    department: "IT & PACS Computerization",
+    location: "Bengaluru, Karnataka / Remote",
+    openings: 24,
+    salary: "₹4.2 - 5.5 LPA",
+    type: "Full-time",
+    postedDate: "18 Feb 2026",
+    status: "Active",
+    applicantsCount: 68
+  },
+  {
+    id: "POST-103",
+    title: "PACS Statutory Audit Associate",
+    department: "Internal Audit & Compliance",
+    location: "Chennai / Tiruchirappalli, Tamil Nadu",
+    openings: 12,
+    salary: "₹4.0 - 5.2 LPA",
+    type: "Full-time",
+    postedDate: "22 Feb 2026",
+    status: "Active",
+    applicantsCount: 29
+  },
+  {
+    id: "POST-104",
+    title: "Rural Cooperative Credit Apprentice",
+    department: "Priority Sector Lending",
+    location: "Dindigul / Theni, Tamil Nadu",
+    openings: 30,
+    salary: "₹2.8 - 3.6 LPA",
+    type: "Apprenticeship",
+    postedDate: "25 Feb 2026",
+    status: "Active",
+    applicantsCount: 54
+  }
+];
+
+export const mockInterviews: InterviewItem[] = [
+  {
+    id: "INT-501",
+    candidateName: "Priya Venkatesh",
+    jobTitle: "Digital Operations Assistant",
+    date: "04 Mar 2026",
+    time: "10:30 AM",
+    interviewer: "Thiru. S. Sundararajan (VP - IT)",
+    mode: "Online (Video)",
+    status: "Scheduled"
+  },
+  {
+    id: "INT-502",
+    candidateName: "Aarav Sharma",
+    jobTitle: "Cooperative Field Officer",
+    date: "05 Mar 2026",
+    time: "02:00 PM",
+    interviewer: "Tmt. Radhika Raman (Head - Rural Credit)",
+    mode: "In-Person (HQ)",
+    status: "Scheduled"
+  },
+  {
+    id: "INT-503",
+    candidateName: "Deepa Nambiar",
+    jobTitle: "Cooperative Field Officer",
+    date: "06 Mar 2026",
+    time: "11:15 AM",
+    interviewer: "Thiru. K. Murugan (General Manager)",
+    mode: "Online (Video)",
+    status: "Scheduled"
+  }
+];
+
+export const mockHiredCandidates: HiredCandidateItem[] = [
+  {
+    id: "HIRE-1",
+    candidateName: "Sanjay Kumar",
+    jobTitle: "Cooperative Field Officer",
+    institute: "ICM Madurai",
+    joiningDate: "15 Mar 2026",
+    ctc: "₹5.4 LPA",
+    status: "Offer Accepted"
+  },
+  {
+    id: "HIRE-2",
+    candidateName: "Divya Balan",
+    jobTitle: "Digital Operations Assistant",
+    institute: "RICM Bengaluru",
+    joiningDate: "10 Mar 2026",
+    ctc: "₹5.0 LPA",
+    status: "Joined"
+  },
+  {
+    id: "HIRE-3",
+    candidateName: "Rohan Varma",
+    jobTitle: "PACS Audit Associate",
+    institute: "VAMNICOM Pune",
+    joiningDate: "20 Mar 2026",
+    ctc: "₹4.8 LPA",
+    status: "Onboarding"
+  }
+];
+
+export const mockAdminReports: ReportItem[] = [
+  {
+    id: "REP-1",
+    title: "National Cooperative Training Cohort Completion Report",
+    category: "Training",
+    period: "FY 2025-26 (Q3 & Q4)",
+    recordsCount: 24850,
+    generatedDate: "28 Feb 2026"
+  },
+  {
+    id: "REP-2",
+    title: "Biometric Attendance & Terminal Compliance Audit",
+    category: "Attendance",
+    period: "Feb 2026",
+    recordsCount: 184500,
+    generatedDate: "01 Mar 2026"
+  },
+  {
+    id: "REP-3",
+    title: "National PACS ERP Practical Assessment Marksheet",
+    category: "Assessment",
+    period: "Cohort 2026-Batch 1",
+    recordsCount: 4210,
+    generatedDate: "27 Feb 2026"
+  },
+  {
+    id: "REP-4",
+    title: "Verifiable Digital Certificate & Blockchain Hash Registry",
+    category: "Certificate",
+    period: "Cumulative to Date",
+    recordsCount: 18420,
+    generatedDate: "02 Mar 2026"
+  },
+  {
+    id: "REP-5",
+    title: "Cooperative Banking & FPO Sector Placement Census",
+    category: "Employment",
+    period: "2025-2026 Annual Drive",
+    recordsCount: 3890,
+    generatedDate: "25 Feb 2026"
+  }
+];

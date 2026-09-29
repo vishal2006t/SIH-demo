@@ -170,3 +170,58 @@ export interface NotificationItem {
   type: 'assessment' | 'certificate' | 'course' | 'job' | 'system';
   unread: boolean;
 }
+
+export interface NominationItem {
+  id: string;
+  candidateName: string;
+  organization: string;
+  district: string;
+  state: string;
+  programmeApplied: string;
+  status: 'Pending' | 'Approved' | 'Rejected';
+  submissionDate: string;
+  experienceYears: number;
+}
+
+export interface InterviewItem {
+  id: string;
+  candidateName: string;
+  jobTitle: string;
+  date: string;
+  time: string;
+  interviewer: string;
+  mode: 'Online (Video)' | 'In-Person (HQ)';
+  status: 'Scheduled' | 'Completed' | 'Cancelled';
+}
+
+export interface HiredCandidateItem {
+  id: string;
+  candidateName: string;
+  jobTitle: string;
+  institute: string;
+  joiningDate: string;
+  ctc: string;
+  status: 'Offer Accepted' | 'Joined' | 'Onboarding';
+}
+
+export interface ReportItem {
+  id: string;
+  title: string;
+  category: 'Training' | 'Attendance' | 'Assessment' | 'Certificate' | 'Employment' | 'Recruitment';
+  period: string;
+  recordsCount: number;
+  generatedDate: string;
+}
+
+export interface JobPostingItem {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  openings: number;
+  salary: string;
+  type: 'Full-time' | 'Contract' | 'Apprenticeship';
+  postedDate: string;
+  status: 'Active' | 'Paused' | 'Closed';
+  applicantsCount: number;
+}
