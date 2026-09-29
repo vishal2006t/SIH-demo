@@ -32,18 +32,32 @@ export interface AiSkillAnalysisResult {
   summary: string;
 }
 
-// Safely retrieve environment variables without leaking in UI
+// Safely retrieve environment variables without leaking in UI or crashing in static hosting
 const getApiKey = (): string => {
-  return import.meta.env.VITE_OPENROUTER_API_KEY || '';
+  try {
+    const key = import.meta?.env?.VITE_OPENROUTER_API_KEY;
+    return typeof key === 'string' ? key.trim() : '';
+  } catch {
+    return '';
+  }
 };
 
 export const getModelId = (): string => {
-  return import.meta.env.VITE_OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct';
+  try {
+    const model = import.meta?.env?.VITE_OPENROUTER_MODEL;
+    return typeof model === 'string' && model.trim() ? model.trim() : 'meta-llama/llama-3.3-70b-instruct';
+  } catch {
+    return 'meta-llama/llama-3.3-70b-instruct';
+  }
 };
 
 export const isOpenRouterConfigured = (): boolean => {
-  const key = getApiKey().trim();
-  return Boolean(key && key !== 'YOUR_API_KEY_HERE' && !key.startsWith('YOUR_'));
+  try {
+    const key = getApiKey();
+    return Boolean(key && key !== 'YOUR_API_KEY_HERE' && !key.startsWith('YOUR_'));
+  } catch {
+    return false;
+  }
 };
 
 /**
