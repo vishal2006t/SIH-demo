@@ -27,7 +27,8 @@ import {
   FileText,
   Check,
   AlertCircle,
-  Plus
+  Plus,
+  Menu
 } from 'lucide-react';
 import {
   mockCandidates,
@@ -41,8 +42,23 @@ import { CandidateItem, JobPostingItem, InterviewItem, HiredCandidateItem } from
 import { SkillPassportModal } from '../modals/SkillPassportModal';
 import { ReportPreviewModal } from '../modals/ReportPreviewModal';
 
-export const EmployerDashboard: React.FC = () => {
+interface EmployerDashboardProps {
+  isMobileNavOpen?: boolean;
+  onCloseMobileNav?: () => void;
+  onOpenMobileNav?: () => void;
+}
+
+export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({
+  isMobileNavOpen,
+  onCloseMobileNav,
+  onOpenMobileNav
+}) => {
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [localMobileNavOpen, setLocalMobileNavOpen] = useState(false);
+  const mobileNavOpen = isMobileNavOpen !== undefined ? isMobileNavOpen : localMobileNavOpen;
+  const closeNav = onCloseMobileNav || (() => setLocalMobileNavOpen(false));
+  const openNav = onOpenMobileNav || (() => setLocalMobileNavOpen(true));
+
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -198,8 +214,113 @@ export const EmployerDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* Sidebar Navigation */}
-      <aside className="w-full lg:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
+      {/* Mobile Dashboard Top Bar (< md) */}
+      <div className="md:hidden flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-16 z-20 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={openNav}
+            className="p-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            aria-label="Open Employer Menu"
+          >
+            <Menu className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+          </button>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Building className="w-3.5 h-3.5 text-amber-600" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
+                Recruiter & HR Portal
+              </h3>
+            </div>
+            <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">{activeTab}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300 font-bold">
+            Employer / Bank
+          </span>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileNavOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 md:hidden transition-opacity"
+          onClick={closeNav}
+        />
+      )}
+
+      {/* Mobile Sidebar Drawer (< md) */}
+      <aside
+        className={`fixed inset-y-0 left-0 w-72 max-w-[85vw] bg-white dark:bg-slate-900 z-50 p-4 shadow-2xl flex flex-col md:hidden overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+          mobileNavOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800 px-1">
+          <div>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+              <Building className="w-4 h-4" />
+              <span>State Apex Bank</span>
+            </div>
+            <h2 className="text-sm font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Recruiter & HR Portal
+            </h2>
+          </div>
+          <button
+            onClick={closeNav}
+            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            aria-label="Close Menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <nav className="space-y-1 flex-1">
+          {navItems.map((item) => {
+            const isActive = activeTab === item.name;
+            return (
+              <button
+                key={item.name}
+                onClick={() => {
+                  setActiveTab(item.name);
+                  closeNav();
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
+                  isActive
+                    ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/30'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon className="w-4 h-4" />
+                  <span>{item.name}</span>
+                </div>
+                {item.badge && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                      isActive ? 'bg-white text-amber-700' : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Recruiter Quick Status in Mobile Drawer */}
+        <div className="mt-6 p-3.5 rounded-xl bg-amber-50/50 dark:bg-slate-800/40 border border-amber-200/50 dark:border-slate-800 text-xs">
+          <div className="flex items-center justify-between text-amber-800 dark:text-amber-400 text-[11px] font-bold">
+            <span>Verified Talent Pool</span>
+            <span className="text-emerald-600">✓ On-Chain</span>
+          </div>
+          <p className="font-bold text-slate-800 dark:text-slate-200 mt-1">Direct NCCT Campus Link</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">Instant Skill Passport Verification</p>
+        </div>
+      </aside>
+
+      {/* Desktop Sidebar Navigation (>= md) */}
+      <aside className="hidden md:block md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
         <div className="mb-6 px-3">
           <div className="flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
             <Building className="w-4 h-4" />
@@ -252,7 +373,7 @@ export const EmployerDashboard: React.FC = () => {
       </aside>
 
       {/* Main Panel */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden">
+      <main className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden min-w-0 max-w-full">
 
         {/* ========================================================================= */}
         {/* VIEW 1: DASHBOARD */}

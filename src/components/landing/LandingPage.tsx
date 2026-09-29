@@ -145,39 +145,39 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSelectRole, language
     <div className="space-y-16 py-6 animate-fadeIn">
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-blue-900 via-indigo-950 to-slate-950 text-white p-8 md:p-16 shadow-2xl border border-blue-800/40 text-center">
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-b from-blue-900 via-indigo-950 to-slate-950 text-white p-6 sm:p-8 md:p-16 shadow-2xl border border-blue-800/40 text-center">
         
         {/* Subtle decorative glow elements */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute bottom-0 right-10 w-80 h-80 bg-teal-500/10 blur-[90px] rounded-full pointer-events-none"></div>
 
-        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+        <div className="relative z-10 max-w-4xl mx-auto space-y-4 sm:space-y-6">
           
           {/* Institutional Emblem pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-blue-200">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs font-semibold text-blue-200 max-w-full">
             <span className="text-sm">🇮🇳</span>
-            <span>Smart India Hackathon 2026 Prototype</span>
+            <span>SIH 2026 Prototype</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
             <span className="text-emerald-300">Ministry of Cooperation</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-teal-200">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-teal-200">
             {t.heroTitle || "SMART TRAINING SYSTEM"}
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl font-medium text-blue-200 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-lg md:text-2xl font-medium text-blue-200 max-w-3xl mx-auto leading-relaxed">
             {t.heroSubtitle || "AI-Powered Cooperative Training, Skill Development & Employment Ecosystem"}
           </p>
 
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
             {t.heroDesc || "An integrated digital platform connecting training, learning, assessment, certification, skill verification and employment across India's cooperative sector."}
           </p>
 
           {/* Hero CTAs */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+          <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
             <button
               onClick={() => onSelectRole('trainee')}
-              className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold text-sm shadow-xl hover:shadow-glow-blue transition-all transform hover:scale-105 flex items-center gap-2"
+              className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-glow-blue transition-all transform hover:scale-105 flex items-center justify-center gap-2"
             >
               <span>{t.explorePlatform || "Explore Platform"}</span>
               <ArrowRight className="w-4 h-4" />
@@ -188,7 +188,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSelectRole, language
                 const el = document.getElementById('role-selection-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-7 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 backdrop-blur-md transition-all flex items-center gap-2"
+              className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 backdrop-blur-md transition-all flex items-center justify-center gap-2"
             >
               <Compass className="w-4 h-4 text-teal-300" />
               <span>{t.viewDemo || "View Demo Roles"}</span>

@@ -29,7 +29,8 @@ import {
   ScanFace,
   RefreshCw,
   X,
-  ExternalLink
+  ExternalLink,
+  Menu
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -68,8 +69,23 @@ import { CertificateModal } from '../modals/CertificateModal';
 import { CreateQuizModal } from '../modals/CreateQuizModal';
 import { ReportPreviewModal } from '../modals/ReportPreviewModal';
 
-export const AdminDashboard: React.FC = () => {
+interface AdminDashboardProps {
+  isMobileNavOpen?: boolean;
+  onCloseMobileNav?: () => void;
+  onOpenMobileNav?: () => void;
+}
+
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({
+  isMobileNavOpen,
+  onCloseMobileNav,
+  onOpenMobileNav
+}) => {
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [localMobileNavOpen, setLocalMobileNavOpen] = useState(false);
+  const mobileNavOpen = isMobileNavOpen !== undefined ? isMobileNavOpen : localMobileNavOpen;
+  const closeNav = onCloseMobileNav || (() => setLocalMobileNavOpen(false));
+  const openNav = onOpenMobileNav || (() => setLocalMobileNavOpen(true));
+
   const [successToast, setSuccessToast] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -254,8 +270,115 @@ export const AdminDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* Sidebar Navigation */}
-      <aside className="w-full lg:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
+      {/* Mobile Dashboard Top Bar (< md) */}
+      <div className="md:hidden flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-16 z-20 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={openNav}
+            className="p-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            aria-label="Open Apex Admin Menu"
+          >
+            <Menu className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          </button>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Building className="w-3.5 h-3.5 text-blue-600" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
+                Apex Admin Console
+              </h3>
+            </div>
+            <p className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">{activeTab}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold">
+            NCCT Admin
+          </span>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileNavOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 md:hidden transition-opacity"
+          onClick={closeNav}
+        />
+      )}
+
+      {/* Mobile Sidebar Drawer (< md) */}
+      <aside
+        className={`fixed inset-y-0 left-0 w-72 max-w-[85vw] bg-white dark:bg-slate-900 z-50 p-4 shadow-2xl flex flex-col md:hidden overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+          mobileNavOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800 px-1">
+          <div>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+              <Building className="w-4 h-4" />
+              <span>National Council NCCT</span>
+            </div>
+            <h2 className="text-sm font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Apex Admin Console
+            </h2>
+          </div>
+          <button
+            onClick={closeNav}
+            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            aria-label="Close Menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <nav className="space-y-1 flex-1">
+          {navItems.map((item) => {
+            const isActive = activeTab === item.name;
+            return (
+              <button
+                key={item.name}
+                onClick={() => {
+                  setActiveTab(item.name);
+                  closeNav();
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
+                  isActive
+                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/30'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon className="w-4 h-4" />
+                  <span>{item.name}</span>
+                </div>
+                {item.badge && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                      isActive ? 'bg-white text-blue-700' : 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Quick Apex Status Card in Mobile Drawer */}
+        <div className="mt-6 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 text-xs">
+          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
+            <span>System Status</span>
+            <span className="flex items-center gap-1 text-emerald-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Live
+            </span>
+          </div>
+          <p className="font-bold text-slate-800 dark:text-slate-200 mt-1">28 Institutes Connected</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">PACS ERP Synchronization Active</p>
+        </div>
+      </aside>
+
+      {/* Desktop Sidebar Navigation (>= md) */}
+      <aside className="hidden md:block md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
         <div className="mb-6 px-3">
           <div className="flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
             <Building className="w-4 h-4" />
@@ -310,7 +433,7 @@ export const AdminDashboard: React.FC = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden">
+      <main className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden min-w-0 max-w-full">
 
         {/* ========================================================================= */}
         {/* VIEW 1: DASHBOARD OVERVIEW */}
@@ -1470,8 +1593,8 @@ export const AdminDashboard: React.FC = () => {
       {/* MODALS: ADD/EDIT PROGRAMME */}
       {/* ========================================================================= */}
       {isAddProgOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <h3 className="font-bold text-slate-900 dark:text-white text-base">
                 {editingProgramme ? "Edit National Programme" : "Create New National Programme"}
@@ -1521,7 +1644,7 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Duration</label>
                   <input
@@ -1571,8 +1694,8 @@ export const AdminDashboard: React.FC = () => {
 
       {/* MODAL: PROGRAMME DETAILS SNAPSHOT */}
       {selectedProgramme && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <h3 className="font-bold text-slate-900 dark:text-white text-base">Programme Dossier</h3>
               <button onClick={() => setSelectedProgramme(null)} className="text-slate-400 hover:text-slate-600">✕</button>
@@ -1600,8 +1723,8 @@ export const AdminDashboard: React.FC = () => {
 
       {/* MODAL: TRAINEE DOSSIER */}
       {selectedTrainee && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <img src={selectedTrainee.photo} alt={selectedTrainee.name} className="w-10 h-10 rounded-full object-cover" />
@@ -1614,7 +1737,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
-              <div className="grid grid-cols-2 gap-2 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl">
                 <div><strong>Enrolled Programme:</strong><br />{selectedTrainee.programme}</div>
                 <div><strong>Institute:</strong><br />{selectedTrainee.institute}</div>
                 <div><strong>Assigned Batch:</strong><br />{selectedTrainee.batch}</div>

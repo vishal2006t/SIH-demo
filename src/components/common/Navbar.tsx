@@ -74,25 +74,25 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
         {/* Left: Mobile hamburger & Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {currentRole && onToggleMobileSidebar && (
             <button
               onClick={onToggleMobileSidebar}
-              className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+              className="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
               aria-label="Toggle Navigation Sidebar"
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </button>
           )}
 
           {/* Logo & National Title */}
           <div
             onClick={() => onSelectRole(null)}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
           >
-            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-teal-500 p-0.5 shadow-md group-hover:shadow-glow-blue transition-all">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-teal-500 p-0.5 shadow-md group-hover:shadow-glow-blue transition-all shrink-0">
               <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-white">
-                <span className="font-extrabold text-sm tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-amber-300">
+                <span className="font-extrabold text-xs sm:text-sm tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-amber-300">
                   STS
                 </span>
               </div>
@@ -101,16 +101,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
+                <span className="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-slate-900 dark:text-white truncate">
                   SMART TRAINING <span className="text-blue-600 dark:text-blue-400">SYSTEM</span>
                 </span>
-                <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300">
+                <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300 shrink-0">
                   SIH 2026
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 -mt-0.5 hidden sm:block">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 -mt-0.5 hidden sm:block truncate">
                 Ministry of Cooperation • NCCT Ecosystem
               </p>
             </div>
@@ -118,28 +118,28 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Center: Global Search Bar */}
-        <div className="flex-1 max-w-md hidden md:block">
+        <div className="flex-1 max-w-xs lg:max-w-md hidden lg:block">
           <button
             onClick={onOpenSearch}
             className="w-full flex items-center justify-between px-3.5 py-2 text-xs text-slate-400 bg-slate-100/80 dark:bg-slate-800/60 hover:bg-slate-200/60 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/70 rounded-xl transition"
           >
             <div className="flex items-center gap-2">
-              <Search className="w-4 h-4 text-slate-400" />
-              <span>{t.searchPlaceholder || "Search trainees, courses, programmes, jobs..."}</span>
+              <Search className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">{t.searchPlaceholder || "Search trainees, courses, programmes, jobs..."}</span>
             </div>
-            <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">
+            <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded shrink-0">
               Ctrl+K
             </kbd>
           </button>
         </div>
 
-        {/* Right Action Icons: Search (mobile), Lang, Dark, Notif, Role */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right Action Icons: Search (mobile/tablet), Lang, Dark, Notif, Role */}
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-3 shrink-0">
           
-          {/* Mobile Search Button */}
+          {/* Mobile/Tablet Search Button */}
           <button
             onClick={onOpenSearch}
-            className="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+            className="lg:hidden p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
             title="Search"
           >
             <Search className="w-4 h-4" />
@@ -149,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowLangMenu(!showLangMenu)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition"
+              className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition"
               title="Change Language"
             >
               <Globe className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Dark / Light Mode Toggle */}
           <button
             onClick={onToggleDarkMode}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            className="p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
             title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
@@ -198,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+              className="relative p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
               title="Notifications"
             >
               <Bell className="w-4 h-4" />
@@ -208,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-fadeIn">
+              <div className="absolute right-0 mt-2 w-72 sm:w-96 max-w-[90vw] bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-fadeIn">
                 <div className="p-3.5 px-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
                   <div className="flex items-center gap-2">
                     <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">

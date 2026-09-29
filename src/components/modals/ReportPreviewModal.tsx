@@ -28,9 +28,9 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         
-        <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400">
               <FileText className="w-5 h-5" />
@@ -47,8 +47,8 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
           </button>
         </div>
 
-        <div className="p-6 space-y-4">
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+        <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
             <div>
               <span className="text-slate-500">Period:</span> <strong>Academic Year 2025-2026</strong>
             </div>
@@ -107,7 +107,7 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
           )}
         </div>
 
-        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2.5">
+        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2.5 shrink-0">
           <button
             onClick={onClose}
             className="px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"

@@ -27,7 +27,8 @@ import {
   Check,
   Search,
   Filter,
-  AlertCircle
+  AlertCircle,
+  Menu
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -60,8 +61,23 @@ import { VideoPlayerModal } from '../modals/VideoPlayerModal';
 import { CreateQuizModal } from '../modals/CreateQuizModal';
 import { ReportPreviewModal } from '../modals/ReportPreviewModal';
 
-export const TrainerDashboard: React.FC = () => {
+interface TrainerDashboardProps {
+  isMobileNavOpen?: boolean;
+  onCloseMobileNav?: () => void;
+  onOpenMobileNav?: () => void;
+}
+
+export const TrainerDashboard: React.FC<TrainerDashboardProps> = ({
+  isMobileNavOpen,
+  onCloseMobileNav,
+  onOpenMobileNav
+}) => {
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [localMobileNavOpen, setLocalMobileNavOpen] = useState(false);
+  const mobileNavOpen = isMobileNavOpen !== undefined ? isMobileNavOpen : localMobileNavOpen;
+  const closeNav = onCloseMobileNav || (() => setLocalMobileNavOpen(false));
+  const openNav = onOpenMobileNav || (() => setLocalMobileNavOpen(true));
+
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -327,8 +343,115 @@ export const TrainerDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* Sidebar Navigation */}
-      <aside className="w-full lg:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
+      {/* Mobile Dashboard Top Bar (< md) */}
+      <div className="md:hidden flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-16 z-20 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={openNav}
+            className="p-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            aria-label="Open Trainer Menu"
+          >
+            <Menu className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+          </button>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Building className="w-3.5 h-3.5 text-teal-600" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
+                Trainer & Faculty Console
+              </h3>
+            </div>
+            <p className="text-[10px] text-teal-600 dark:text-teal-400 font-semibold">{activeTab}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-300 font-bold">
+            Faculty / ICM
+          </span>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileNavOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 md:hidden transition-opacity"
+          onClick={closeNav}
+        />
+      )}
+
+      {/* Mobile Sidebar Drawer (< md) */}
+      <aside
+        className={`fixed inset-y-0 left-0 w-72 max-w-[85vw] bg-white dark:bg-slate-900 z-50 p-4 shadow-2xl flex flex-col md:hidden overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+          mobileNavOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800 px-1">
+          <div>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">
+              <Building className="w-4 h-4" />
+              <span>ICM Madurai Portal</span>
+            </div>
+            <h2 className="text-sm font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Trainer & Faculty Console
+            </h2>
+          </div>
+          <button
+            onClick={closeNav}
+            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            aria-label="Close Menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <nav className="space-y-1 flex-1">
+          {navItems.map((item) => {
+            const isActive = activeTab === item.name;
+            return (
+              <button
+                key={item.name}
+                onClick={() => {
+                  setActiveTab(item.name);
+                  closeNav();
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
+                  isActive
+                    ? 'bg-teal-600 text-white shadow-sm shadow-teal-500/30'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon className="w-4 h-4" />
+                  <span>{item.name}</span>
+                </div>
+                {item.badge && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                      isActive ? 'bg-white text-teal-700' : 'bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-300'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Quick Room Status Card in Mobile Drawer */}
+        <div className="mt-6 p-3.5 rounded-xl bg-teal-50/50 dark:bg-slate-800/40 border border-teal-200/50 dark:border-slate-800 text-xs">
+          <div className="flex items-center justify-between text-teal-800 dark:text-teal-400 text-[11px] font-bold">
+            <span>Hostel Occupancy</span>
+            <span>80% Occupied</span>
+          </div>
+          <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden mt-2">
+            <div className="bg-teal-600 h-full rounded-full" style={{ width: '80%' }}></div>
+          </div>
+          <p className="text-[10px] text-slate-400 mt-1">16 of 20 beds allocated</p>
+        </div>
+      </aside>
+
+      {/* Desktop Sidebar Navigation (>= md) */}
+      <aside className="hidden md:block md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
         <div className="mb-6 px-3">
           <div className="flex items-center gap-2 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">
             <Building className="w-4 h-4" />
@@ -383,7 +506,7 @@ export const TrainerDashboard: React.FC = () => {
       </aside>
 
       {/* Main Panel */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden">
+      <main className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 overflow-x-hidden min-w-0 max-w-full">
 
         {/* ========================================================================= */}
         {/* VIEW 1: DASHBOARD */}

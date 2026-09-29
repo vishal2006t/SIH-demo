@@ -31,15 +31,15 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/75 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-3xl my-8 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/75 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col my-2 sm:my-8 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         
         {/* Top Control Bar */}
-        <div className="flex items-center justify-between p-4 px-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60">
+        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3 sm:p-4 px-4 sm:px-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 shrink-0">
           <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
             <Award className="w-5 h-5 text-amber-500" />
-            <span className="text-sm font-semibold">National Digital Credential Preview</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-medium">
+            <span className="text-xs sm:text-sm font-semibold">National Digital Credential Preview</span>
+            <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-medium">
               Tamper-Proof
             </span>
           </div>
@@ -70,9 +70,9 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
         </div>
 
         {/* Certificate Sheet Display */}
-        <div className="p-6 md:p-10 bg-slate-100/60 dark:bg-slate-950 flex justify-center">
+        <div className="p-3 sm:p-6 md:p-10 bg-slate-100/60 dark:bg-slate-950 flex justify-center overflow-y-auto flex-1">
           
-          <div className="w-full max-w-2xl bg-amber-50/30 dark:bg-slate-900 border-8 border-double border-amber-600/40 rounded-xl p-8 md:p-10 shadow-lg relative certificate-watermark">
+          <div className="w-full max-w-2xl bg-amber-50/30 dark:bg-slate-900 border-4 sm:border-8 border-double border-amber-600/40 rounded-xl p-4 sm:p-8 md:p-10 shadow-lg relative certificate-watermark">
             
             {/* Ornamental Corners */}
             <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-amber-600"></div>
@@ -193,7 +193,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
         </div>
 
         {/* Verification & Action Bar */}
-        <div className="p-4 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div className="p-3 sm:p-4 px-4 sm:px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-xs text-slate-500 dark:text-slate-400">Verification Status:</span>
             {verificationSuccess ? (

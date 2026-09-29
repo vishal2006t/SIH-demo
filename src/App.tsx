@@ -11,12 +11,22 @@ import { CoopCareerChatbot } from './components/chatbot/CoopCareerChatbot';
 import { GlobalSearchModal } from './components/common/GlobalSearchModal';
 
 export const App: React.FC = () => {
-  const [currentRole, setCurrentRole] = useState<Role>(null);
+  const [currentRole, setCurrentRole] = useState<Role>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const roleParam = params.get('role');
+      if (roleParam === 'admin' || roleParam === 'trainer' || roleParam === 'trainee' || roleParam === 'employer') {
+        return roleParam;
+      }
+    }
+    return null;
+  });
   const [language, setLanguage] = useState<Language>('en');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   // Apply dark mode class to document
   useEffect(() => {
@@ -43,7 +53,13 @@ export const App: React.FC = () => {
     setIsDarkMode(prev => !prev);
   };
 
+  const handleSelectRole = (role: Role) => {
+    setCurrentRole(role);
+    setIsMobileSidebarOpen(false);
+  };
+
   const handleSelectSearchResult = (type: string, id: string) => {
+    setIsMobileSidebarOpen(false);
     if (type === 'programme') {
       setCurrentRole('admin');
     } else if (type === 'course') {
@@ -56,38 +72,50 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 overflow-x-hidden">
       
       {/* Top Navigation */}
       <Navbar
         currentRole={currentRole}
-        onSelectRole={setCurrentRole}
+        onSelectRole={handleSelectRole}
         language={language}
         onSelectLanguage={setLanguage}
         isDarkMode={isDarkMode}
         onToggleDarkMode={handleToggleDarkMode}
         onOpenSearch={() => setIsSearchOpen(true)}
+        onToggleMobileSidebar={() => setIsMobileSidebarOpen(prev => !prev)}
       />
 
       {/* Main View Router */}
-      <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 min-w-0 max-w-full overflow-x-hidden">
         {currentRole === null && (
           <LandingPage
-            onSelectRole={setCurrentRole}
+            onSelectRole={handleSelectRole}
             language={language}
           />
         )}
 
         {currentRole === 'admin' && (
-          <AdminDashboard />
+          <AdminDashboard
+            isMobileNavOpen={isMobileSidebarOpen}
+            onCloseMobileNav={() => setIsMobileSidebarOpen(false)}
+            onOpenMobileNav={() => setIsMobileSidebarOpen(true)}
+          />
         )}
 
         {currentRole === 'trainer' && (
-          <TrainerDashboard />
+          <TrainerDashboard
+            isMobileNavOpen={isMobileSidebarOpen}
+            onCloseMobileNav={() => setIsMobileSidebarOpen(false)}
+            onOpenMobileNav={() => setIsMobileSidebarOpen(true)}
+          />
         )}
 
         {currentRole === 'trainee' && (
           <TraineeDashboard
+            isMobileNavOpen={isMobileSidebarOpen}
+            onCloseMobileNav={() => setIsMobileSidebarOpen(false)}
+            onOpenMobileNav={() => setIsMobileSidebarOpen(true)}
             onOpenChatbot={() => {
               // Can trigger chatbot open if needed
             }}
@@ -95,7 +123,11 @@ export const App: React.FC = () => {
         )}
 
         {currentRole === 'employer' && (
-          <EmployerDashboard />
+          <EmployerDashboard
+            isMobileNavOpen={isMobileSidebarOpen}
+            onCloseMobileNav={() => setIsMobileSidebarOpen(false)}
+            onOpenMobileNav={() => setIsMobileSidebarOpen(true)}
+          />
         )}
       </div>
 

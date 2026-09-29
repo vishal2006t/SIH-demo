@@ -35,11 +35,11 @@ export const AttendanceDemoModal: React.FC<AttendanceDemoModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-md overflow-hidden bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
+      <div className="relative w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
         
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
             <div className={`p-2.5 rounded-xl ${type === 'qr' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400' : 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400'}`}>
               {type === 'qr' ? <QrCode className="w-5 h-5" /> : <ScanFace className="w-5 h-5" />}
@@ -62,10 +62,10 @@ export const AttendanceDemoModal: React.FC<AttendanceDemoModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-6 text-center">
+        <div className="p-4 sm:p-6 text-center overflow-y-auto flex-1">
           
           {/* Scanner Viewport Simulation */}
-          <div className="relative w-64 h-64 mx-auto mb-5 rounded-2xl overflow-hidden bg-slate-950 border-2 border-slate-700 shadow-inner flex items-center justify-center">
+          <div className="relative w-56 h-56 sm:w-64 sm:h-64 mx-auto mb-5 rounded-2xl overflow-hidden bg-slate-950 border-2 border-slate-700 shadow-inner flex items-center justify-center">
             
             {/* Background grid texture */}
             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#3b82f6_1px,transparent_1px),linear-gradient(to_bottom,#3b82f6_1px,transparent_1px)] bg-[size:16px_16px]"></div>
@@ -164,7 +164,7 @@ export const AttendanceDemoModal: React.FC<AttendanceDemoModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
+        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2 shrink-0">
           <button
             onClick={onClose}
             className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition"

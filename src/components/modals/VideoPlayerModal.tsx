@@ -19,16 +19,16 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
   if (!isOpen || !video) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         
         {/* Header */}
-        <div className="flex items-center justify-between p-4 px-6 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between p-3 sm:p-4 px-4 sm:px-6 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
               {video.category}
             </span>
-            <h3 className="font-bold text-slate-900 dark:text-white text-sm truncate max-w-md">
+            <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate max-w-[200px] sm:max-w-md">
               {video.title}
             </h3>
           </div>
@@ -95,7 +95,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
         </div>
 
         {/* Video Information & Tabs */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">{video.title}</h2>

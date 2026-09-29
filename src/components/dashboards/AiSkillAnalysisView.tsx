@@ -305,10 +305,10 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
       </div>
 
       {/* 3 Interactive Recharts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-w-0">
         
         {/* Chart 1: Skill Distribution */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft min-w-0 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-bold text-slate-900 dark:text-white text-sm">
@@ -323,9 +323,9 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-64 w-full min-w-0">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart outerRadius={85} data={skillDistribution}>
+              <RadarChart outerRadius={80} data={skillDistribution}>
                 <PolarGrid stroke="#94a3b8" strokeOpacity={0.25} />
                 <PolarAngleAxis dataKey="skill" tick={{ fill: '#64748b', fontSize: 10 }} />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#94a3b8', fontSize: 9 }} />
@@ -344,7 +344,7 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
         </div>
 
         {/* Chart 2: Assessment Performance */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft min-w-0 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-bold text-slate-900 dark:text-white text-sm">
@@ -359,7 +359,7 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-64 w-full min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={assessmentData} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.4} />
@@ -380,7 +380,7 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
         </div>
 
         {/* Chart 3: Attendance vs Learning Progress */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft min-w-0 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-bold text-slate-900 dark:text-white text-sm">
@@ -395,7 +395,7 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-64 w-full min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={correlationData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -465,10 +465,10 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
       </div>
 
       {/* 2-Column Section: Detected Skill Gaps & AI Recommended Courses */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-0">
         
         {/* Detected Skill Gaps */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft min-w-0">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <div className="p-2 rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400">
@@ -515,7 +515,7 @@ export const AiSkillAnalysisView: React.FC<AiSkillAnalysisViewProps> = ({ onEnro
         </div>
 
         {/* AI Recommended Courses */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft min-w-0">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <div className="p-2 rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400">

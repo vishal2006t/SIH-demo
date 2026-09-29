@@ -177,10 +177,10 @@ export const CoopCareerChatbot: React.FC = () => {
   return (
     <>
       {/* Floating Chatbot Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="group relative flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl hover:shadow-glow-purple transition-all duration-300 transform hover:scale-105"
+          className="group relative flex items-center gap-2 sm:gap-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl hover:shadow-glow-purple transition-all duration-300 transform hover:scale-105"
           aria-label="Open CoopCareer AI Chatbot"
         >
           <div className="relative">
@@ -188,7 +188,7 @@ export const CoopCareerChatbot: React.FC = () => {
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-indigo-600 animate-ping"></span>
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-indigo-600"></span>
           </div>
-          <span className="font-bold text-sm tracking-wide">CoopCareer AI</span>
+          <span className="font-bold text-xs sm:text-sm tracking-wide">CoopCareer AI</span>
           <span className="hidden sm:inline-block text-[11px] font-medium bg-white/20 px-2 py-0.5 rounded-full">
             Real AI
           </span>
@@ -197,7 +197,7 @@ export const CoopCareerChatbot: React.FC = () => {
 
       {/* Chat Window / Bottom Sheet for Mobile */}
       {isOpen && (
-        <div className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-20 sm:right-6 z-50 w-full sm:w-[430px] sm:max-h-[640px] h-[85vh] sm:h-[600px] flex flex-col bg-white dark:bg-slate-900 sm:rounded-3xl rounded-t-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden animate-slideUp">
+        <div className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-20 sm:right-6 z-50 w-full sm:w-[430px] max-w-full sm:max-w-[430px] sm:max-h-[640px] h-[85vh] sm:h-[600px] flex flex-col bg-white dark:bg-slate-900 sm:rounded-3xl rounded-t-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden animate-slideUp">
           
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-4 px-5 text-white flex items-center justify-between shadow-md">

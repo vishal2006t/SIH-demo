@@ -18,11 +18,11 @@ export const SkillPassportModal: React.FC<SkillPassportModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/75 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-2xl my-8 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/75 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col my-2 sm:my-8 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         
         {/* Passport Header: Navy / Deep Blue with Gold Trim */}
-        <div className="relative bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-6 md:p-8 border-b-4 border-amber-500">
+        <div className="relative bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-5 sm:p-6 md:p-8 border-b-4 border-amber-500 shrink-0">
           <div className="absolute top-4 right-4">
             <button
               onClick={onClose}
@@ -32,12 +32,12 @@ export const SkillPassportModal: React.FC<SkillPassportModalProps> = ({
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             <div className="relative">
               <img
                 src={profile.photo}
                 alt={profile.name}
-                className="w-24 h-24 rounded-2xl object-cover border-4 border-white/20 shadow-xl"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white/20 shadow-xl"
               />
               <span className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-1 rounded-full border-2 border-slate-900">
                 <CheckCircle2 className="w-4 h-4" />
@@ -49,7 +49,7 @@ export const SkillPassportModal: React.FC<SkillPassportModalProps> = ({
                 <ShieldCheck className="w-3.5 h-3.5" />
                 NCCT Digital Skill Passport
               </div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 {profile.name}
               </h2>
               <p className="text-xs text-blue-200">
@@ -63,7 +63,7 @@ export const SkillPassportModal: React.FC<SkillPassportModalProps> = ({
         </div>
 
         {/* Passport Body */}
-        <div className="p-6 md:p-8 space-y-6">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 overflow-y-auto flex-1">
 
           {/* Key Metrics Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -172,7 +172,7 @@ export const SkillPassportModal: React.FC<SkillPassportModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 px-6 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+        <div className="p-4 px-6 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2 justify-between items-center shrink-0">
           <span className="text-[11px] text-slate-500 dark:text-slate-400">
             Powered by NCCT National Skill Registry • SIH 2026
           </span>
